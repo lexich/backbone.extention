@@ -45,11 +45,43 @@ view.d("testLink") === $(".testLink", view.$el);
 var View = Backbone.View.extend({
    templatePath:"#templateID"
 });
-view.$el.html() === "<p>Hello</p>";
+view.$el.html() === "<p>Hello</p>" === view.template_content;
 ```
 
+### <img> animated loader [imgLoadAnimation]
+css Animations
+```js
+var View = Backbone.View.extend({
+   el:"<div><img src='http://placehold.it/350x150'></div>"
+   imgLoadAnimation:{
+      self:{ // pointer to current DOM element this.el
+             // we can use any jqeury selector to point to another element within this.el
+         defaultClass:"defClass", // this.$el.addClass("defClass"); before img loaded
+         defautlCSS:{             // this.$el.css({opacity:0});
+           opacity:0
+         },
+         css:"fadeInCSSAnimation" // this.$el.addClass("fadeInCSSAnimation"); after img loaded
+      }
+   }
+});
+```
 
-
-
-
+jQuery animations
+```js
+var View = Backbone.View.extend({
+   el:"<div><img src='http://placehold.it/350x150'></div>"
+   imgLoadAnimation:{
+      self:{
+         js:{
+         // see http://api.jquery.com/animate/
+          properties:{ opacity:1 }, 
+          duration: 400,
+          easing:"swing",
+          complete:"on_complete" //callback this.on_complete in context
+         }
+      }
+   },
+   on_complete:function(){}
+});
+```
 
