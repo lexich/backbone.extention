@@ -1,0 +1,29 @@
+{
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "coffee-script": "~1.6.3",
+    "grunt-contrib": "~0.7.0"
+  },
+  "name": "backbone.extention",
+  "description": "backbone.extention\r ==================",
+  "version": "0.0.1",
+  "main": "build/backbone-extention.js",
+  "dependencies": {    
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lexich/backbone.extention.git"
+  },
+  "keywords": [
+    "backbone",
+    "extention"
+  ],
+  "author": "lexich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lexich/backbone.extention/issues"
+  }
+}

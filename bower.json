@@ -1,0 +1,25 @@
+{
+  "name": "backbone-extention",
+  "version": "0.0.1",
+  "homepage": "https://github.com/lexich/backbone.extention",
+  "authors": [
+    "lexich <lexich121@gmail.com>"
+  ],
+  "description": "Backbone extention",
+  "main": "build/backbone-extention.js",
+  "keywords": [
+    "Backbone",
+    "extention"
+  ],
+  "dependencies":{
+    "backbone": "~1.0.0"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
