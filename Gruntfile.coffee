@@ -55,10 +55,10 @@ module.exports = (grunt)->
     bow.version = v.join(".")
     console.log "package.json"
     console.log pkg
-    grunt.file.write "package.json", JSON.stringify(pkg)
+    grunt.file.write "package.json", JSON.stringify(pkg, null, 2)
     console.log "bower.json" 
     console.log bow
-    grunt.file.write "bower.json", JSON.stringify(bow)
+    grunt.file.write "bower.json", JSON.stringify(bow, null, 2)
 
 
   grunt.loadNpmTasks "grunt-contrib"
