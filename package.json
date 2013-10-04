@@ -8,8 +8,7 @@
   "description": "backbone.extention\r ==================",
   "version": "0.0.1",
   "main": "build/backbone-extention.js",
-  "dependencies": {    
-  },
+  "dependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

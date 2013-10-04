@@ -11,7 +11,7 @@
     "Backbone",
     "extention"
   ],
-  "dependencies":{
+  "dependencies": {
     "backbone": "~1.0.0"
   },
   "license": "MIT",
