@@ -58,6 +58,6 @@ Backbone.View::extention =
 Backbone.View::_ensureElement = ->
   @extention.__super__ensureElement.call this    
   @extention.initPtr.call this
-  @extention.initDomLinks.call this
   @extention.initTemplateLoader.call this
+  @extention.initDomLinks.call this  
   @extention.initImgLoadAnimation.call this

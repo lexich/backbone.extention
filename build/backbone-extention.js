@@ -92,8 +92,8 @@
   Backbone.View.prototype._ensureElement = function() {
     this.extention.__super__ensureElement.call(this);
     this.extention.initPtr.call(this);
-    this.extention.initDomLinks.call(this);
     this.extention.initTemplateLoader.call(this);
+    this.extention.initDomLinks.call(this);
     return this.extention.initImgLoadAnimation.call(this);
   };
 

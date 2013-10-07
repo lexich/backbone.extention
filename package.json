@@ -6,7 +6,7 @@
   },
   "name": "backbone.extention",
   "description": "backbone.extention\r ==================",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "build/backbone-extention.js",
   "dependencies": {},
   "scripts": {
