@@ -1,5 +1,5 @@
-Backbone.View::extention = 
-  __super__ensureElement: Backbone.View::_ensureElement    
+Backbone.View::extention =
+  __super__ensureElement: Backbone.View::_ensureElement
 
   initPtr: ->
     #assign current view to root DOM element
@@ -36,28 +36,40 @@ Backbone.View::extention =
       @$d[name] = $(selector, @$el)
     @d = (name)-> $(@domLinks[name], @$el)
 
+  bindContext:(ctx, param)->
+    func = if _.isString(param) then ctx[param] else param
+    if func?
+      _.bind(func,ctx)
+    else
+      null
 
   eventImgLoadAnimation:(e)->
     $img = $(e.target)
-    _.each @imgLoadAnimation,(opt, selector)=>
+    options = @imgLoadAnimation
+    _.each options,(opt, selector)=>
+      beforeRender = @extention.bindContext this, opt.beforeRender
+      afterRender = @extention.bindContext this, opt.afterRender
+      complete = @extention.bindContext this, opt.complete
+
       $item = if selector in ["this","self"] then @$el else $(selector, @$el)
+      beforeRender? $item, opt
       if opt.css?
         className = if _.isString(opt.css) then opt.css else (opt.css["class"] or "")
         $item.addClass className
+        afterRender? $item, opt
       if opt.js?
         jsOptions= _.defaults {
           properties:{ opacity:1 }
           duration: 400
           easing:"swing"
-          complete:->
         }, opt.js
-        if _.isString(jsOptions.complete)
-          jsOptions.complete = _.bind(this[jsOptions.complete],this)
+        jsOptions.complete = complete if complete?
         $item.animate jsOptions.properties, _.omit(jsOptions,"properties")
+        afterRender? $item, opt
 
 Backbone.View::_ensureElement = ->
-  @extention.__super__ensureElement.call this    
+  @extention.__super__ensureElement.call this
   @extention.initPtr.call this
   @extention.initTemplateLoader.call this
-  @extention.initDomLinks.call this  
+  @extention.initDomLinks.call this
   @extention.initImgLoadAnimation.call this

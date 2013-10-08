@@ -1,21 +1,21 @@
 module.exports = (grunt)->
-  
-  
+
+
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
     clean:
       dist:
         files:[
-          dot:true  
+          dot:true
           src:[
             "dist"
-            "build"            
+            "build"
           ]
         ]
     coffee:
       dist:
         files:[
-          expand: true          
+          expand: true
           cwd: "src"
           src:"backbone-extention.coffee"
           dest: "dist"
@@ -27,12 +27,12 @@ module.exports = (grunt)->
         options:
           compress:
             global_defs:
-              "DEBUG": false        
+              "DEBUG": false
             dead_code: true
-          mangle: false          
+          mangle: false
           banner: """/*
-            <%= pkg.name %> - v<%= pkg.version %> - 
-            <%= grunt.template.today("yyyy-mm-dd") %> 
+            <%= pkg.name %> - v<%= pkg.version %> -
+            <%= grunt.template.today("yyyy-mm-dd") %>
             author: <%= pkg.author %>
             */\n"""
         files:{
@@ -44,8 +44,7 @@ module.exports = (grunt)->
         src:"dist/backbone-extention.js"
         dest:"build/backbone-extention.js"
 
-  grunt.registerTask "default", ["clean", "coffee", "uglify", "copy"]
-  grunt.registerTask "update",->    
+  grunt.registerTask "update",->
     pkg = grunt.file.readJSON('package.json')
     bow = grunt.file.readJSON('bower.json')
     version = pkg.version
@@ -56,9 +55,12 @@ module.exports = (grunt)->
     console.log "package.json"
     console.log pkg
     grunt.file.write "package.json", JSON.stringify(pkg, null, 2)
-    console.log "bower.json" 
+    console.log "bower.json"
     console.log bow
     grunt.file.write "bower.json", JSON.stringify(bow, null, 2)
+
+  grunt.registerTask "build", ["clean", "coffee", "uglify", "copy"]
+  grunt.registerTask "default", ["build"]
 
 
   grunt.loadNpmTasks "grunt-contrib"

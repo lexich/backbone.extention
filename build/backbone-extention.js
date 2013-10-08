@@ -60,16 +60,35 @@
         return $(this.domLinks[name], this.$el);
       };
     },
+    bindContext: function(ctx, param) {
+      var func;
+      func = _.isString(param) ? ctx[param] : param;
+      if (func != null) {
+        return _.bind(func, ctx);
+      } else {
+        return null;
+      }
+    },
     eventImgLoadAnimation: function(e) {
-      var $img,
+      var $img, options,
         _this = this;
       $img = $(e.target);
-      return _.each(this.imgLoadAnimation, function(opt, selector) {
-        var $item, className, jsOptions;
+      options = this.imgLoadAnimation;
+      return _.each(options, function(opt, selector) {
+        var $item, afterRender, beforeRender, className, complete, jsOptions;
+        beforeRender = _this.extention.bindContext(_this, opt.beforeRender);
+        afterRender = _this.extention.bindContext(_this, opt.afterRender);
+        complete = _this.extention.bindContext(_this, opt.complete);
         $item = selector === "this" || selector === "self" ? _this.$el : $(selector, _this.$el);
+        if (typeof beforeRender === "function") {
+          beforeRender($item, opt);
+        }
         if (opt.css != null) {
           className = _.isString(opt.css) ? opt.css : opt.css["class"] || "";
           $item.addClass(className);
+          if (typeof afterRender === "function") {
+            afterRender($item, opt);
+          }
         }
         if (opt.js != null) {
           jsOptions = _.defaults({
@@ -77,13 +96,13 @@
               opacity: 1
             },
             duration: 400,
-            easing: "swing",
-            complete: function() {}
+            easing: "swing"
           }, opt.js);
-          if (_.isString(jsOptions.complete)) {
-            jsOptions.complete = _.bind(_this[jsOptions.complete], _this);
+          if (complete != null) {
+            jsOptions.complete = complete;
           }
-          return $item.animate(jsOptions.properties, _.omit(jsOptions, "properties"));
+          $item.animate(jsOptions.properties, _.omit(jsOptions, "properties"));
+          return typeof afterRender === "function" ? afterRender($item, opt) : void 0;
         }
       });
     }
