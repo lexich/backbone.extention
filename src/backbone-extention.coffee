@@ -7,10 +7,20 @@ Backbone.View::extention =
 
   initTemplateLoader:->
     #load template to root DOM element
-    return unless @templatePath?
-    $templateEl = $(@templatePath)
-    if(@template_content = $templateEl.html())
-      @$el.html @template_content
+    if @templatePath?
+      $templateEl = $(@templatePath)
+      @templateContent = $templateEl.html()
+
+    if @templateContent? and !@templateCompiled
+      @templateProcessor or = _.template
+      @templateCompiled = @templateProcessor @templateContent
+
+    if @templateCompiled?
+      data = if @templateData? then _.result(this, "templateData") else {}
+      @$el.html @templateCompiled(data)
+    else if @templateContent?
+      @$el.html @templateContent
+
 
   initImgLoadAnimation:($imgs, options)->
     options = @imgLoadAnimation unless options?

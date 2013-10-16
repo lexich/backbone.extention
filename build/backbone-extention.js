@@ -7,13 +7,20 @@
       }
     },
     initTemplateLoader: function() {
-      var $templateEl;
-      if (this.templatePath == null) {
-        return;
+      var $templateEl, data;
+      if (this.templatePath != null) {
+        $templateEl = $(this.templatePath);
+        this.templateContent = $templateEl.html();
       }
-      $templateEl = $(this.templatePath);
-      if ((this.template_content = $templateEl.html())) {
-        return this.$el.html(this.template_content);
+      if ((this.templateContent != null) && !this.templateCompiled) {
+        this.templateProcessor || (this.templateProcessor = _.template);
+        this.templateCompiled = this.templateProcessor(this.templateContent);
+      }
+      if (this.templateCompiled != null) {
+        data = this.templateData != null ? _.result(this, "templateData") : {};
+        return this.$el.html(this.templateCompiled(data));
+      } else if (this.templateContent != null) {
+        return this.$el.html(this.templateContent);
       }
     },
     initImgLoadAnimation: function($imgs, options) {
